@@ -20,6 +20,8 @@ from recipebox.views import recipe
 from recipebox.views import author
 from recipebox.models import Author
 from recipebox.models import Recipe
+from recipebox.views import addrecipe
+from recipebox.views import addauthor
 
 
 admin.site.register(Author)
@@ -29,5 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainpage),
     path('recipe/<int:r_id>', recipe),
-    path('author/<int:a_id>', author)
+    path('author/<int:a_id>', author),
+    path('addrecipe/', addrecipe),
+    path('addauthor/', addauthor)
 ]
