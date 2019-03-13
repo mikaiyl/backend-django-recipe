@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from recipebox.models import Recipe, Author
-from recipebox.forms import AddRecipe
-from recipebox.forms import AddAuthor
+from recipebox.forms import AddRecipe, AddAuthor, AddUser, Login
 
 
 def mainpage(request):
@@ -67,5 +70,57 @@ def addauthor(request):
 
     else:
         form = AddAuthor()
+
+    return render(request, 'generic_form.html', {'form': form})
+
+
+def signup(request):
+    form = None
+
+    if request.method == 'POST':
+        form = AddUser(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            user = User.objects.create_user(
+                data['username'],
+                data['email'],
+                data['password']
+            )
+
+            login(request, user)
+
+            Author.objects.create(
+                name=data['name'],
+                user=user
+            )
+
+            return HttpResponseRedirect(reverse('mainpage'))
+    else:
+        form = AddUser()
+
+    return render(request, 'generic_form.html', {'form': form})
+
+
+def login_view(request):
+    form = None
+
+    if request.method == 'POST':
+        form = Login(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(
+                username=data['username'],
+                password=data['password']
+            )
+
+            if user is not None:
+                login(request, user)
+
+                return HttpResponseRedirect(request.GET.get('next', '/'))
+
+    else:
+        form = Login()
 
     return render(request, 'generic_form.html', {'form': form})

@@ -7,11 +7,17 @@
     <title>Main Page</title>
 </head>
 <body>
-    <h1>Recipes:</h1>
+    <h1 style="color: red">Welcome to my Main Page!</h1>
+    <hr>
+    <h2>Recipes:</h2>
     <ul>
         {% for r in data %}
             <li><a href="/recipe/{{r.id}}">{{r.title}}</a></li>
         {% endfor %}
     </ul>
+    <hr>
+    <a href="/signup/">Create an Author account here!</a>
+    <br/>
+    <a href="/login/">Login here!</a>
 </body>
 </html>
