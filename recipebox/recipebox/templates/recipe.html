@@ -16,5 +16,11 @@
     <hr/>
     <h3>Instructions:</h3>
     <p>{{data.instructions}}</p>
+	{% if user.is_authenticated %}
+	<a href='/recipe/{{data.id}}?favorite=True'><Button>Favorite</button></a>
+	<a href='/recipe/{{data.id}}?favorite=False'><Button>UnFavorite</button></a>
+	<a href='/recipe/{{data.id}}/edit'>edit</a>
+	{% endif %}
+
 </body>
 </html>

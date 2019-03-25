@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'recipebox.urls'
+LOGIN_URL = '/login/'
 
 TEMPLATES = [
     {

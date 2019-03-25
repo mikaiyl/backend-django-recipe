@@ -10,9 +10,16 @@
     <h1>{{a_data.name}}</h1>
     <p><b>Username:</b> {{a_data.user}}</p>
     <p>{{a_data.bio}}</p>
+	<h3>Recipes</h3>
     <ul>
         {% for r in r_data %}
             <li><a href="/recipe/{{r.id}}">{{r.title}}</a></li>
+        {% endfor %}
+    </ul>
+	<h3>Favorites</h3>
+    <ul>
+        {% for f in f_data %}
+		<li><a href="/recipe/{{f.recipe.id}}">{{f.recipe.title}}</a></li>
         {% endfor %}
     </ul>
 </body>
